@@ -1,5 +1,5 @@
 use point::Point2D;
-use std::ops::{Add, Sub, Neg, Mul};
+use std::ops::{Add, Sub, Neg};
 use num::{Zero, One, Num};
 use num::{ToPrimitive};
 use drawable::Drawable;

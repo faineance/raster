@@ -1,6 +1,8 @@
-use std::ops::{Add, Sub, Neg, Mul};
+use std::ops::{Add, Sub, Neg};
+use num::{ToPrimitive};
 use num::Num;
 use drawable::Drawable;
+use canvas::{Canvas, Colour};
 #[derive(Copy, Clone)]
 pub struct Point2D<T> {
 	pub x: T,
@@ -34,5 +36,13 @@ impl<T: Num + Neg<Output=T>> Neg for Point2D<T> {
 	type Output = Point2D<T>;
 	fn neg(self) -> Point2D<T> {
 		Point2D::new(-self.x, -self.y)
+	}
+}
+
+
+impl<T: Num + ToPrimitive> Drawable for Point2D<T> where T: Copy{
+	fn draw(&self, colour: Colour, canvas: &mut Canvas) {
+		canvas.set(self.x, self.y, colour)
+		
 	}
 }

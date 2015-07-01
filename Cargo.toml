@@ -2,3 +2,5 @@
 name = "raster"
 version = "0.1.0"
 authors = ["faineance <faineance@users.noreply.github.com>"]
+[dependencies] 
+num = { version = "0.1", default-features = false }
