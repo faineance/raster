@@ -1,10 +1,11 @@
+use std::fmt::Debug;
 use num::{FromPrimitive, Num, Zero, One};
 use std::ops::{Sub};
 use point::{Point2D, orient2d};
 use drawable::Drawable;
 use canvas::{Canvas, Colour};
 use std::cmp::{min, max, Ord};
-
+#[derive(Debug)]
 pub struct Triangle2D<T>
 {
 	a: Point2D<T>,
@@ -12,7 +13,7 @@ pub struct Triangle2D<T>
 	c: Point2D<T>,
 }
 
-impl<T> Triangle2D<T> where T: Num + Copy {
+impl<T> Triangle2D<T> where T: Num + Copy + Debug {
 	pub fn new(a: Point2D<T>, b: Point2D<T>, c: Point2D<T>) -> Triangle2D<T> {
 		Triangle2D {
 			a: a, b: b, c: c
@@ -20,7 +21,7 @@ impl<T> Triangle2D<T> where T: Num + Copy {
 	}
 }
 
-impl<T> Drawable for Triangle2D<T> where T: Num + Sub + FromPrimitive + Ord + Copy {
+impl<T> Drawable for Triangle2D<T> where T: Num + Sub + FromPrimitive + Ord + Copy + Debug {
 	fn draw(&self, colour: Colour, canvas: &mut Canvas) {
 		// Compute bounding box
 		let mut min_x = min(min(self.a.x, self.b.x), self.c.x);

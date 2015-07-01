@@ -1,4 +1,5 @@
 use canvas::{Canvas, Colour};
-pub trait Drawable {
+use std::fmt::Debug;
+pub trait Drawable: Debug {
 	fn draw(&self, Colour, &mut Canvas);
 }
