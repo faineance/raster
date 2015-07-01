@@ -2,7 +2,8 @@ use std::io::prelude::*;
 use std::fs::File;
 use std::path::Path;
 use std::io;
-
+use num::{Num, ToPrimitive};
+use drawable::Drawable;
 #[derive(Copy, Clone)]
 pub struct Colour {
 	r: u8,
@@ -29,12 +30,12 @@ impl Canvas {
 		Canvas { data: data, width: width, height: height}
 	}
 
-	pub fn set(&mut self, x: usize, y: usize, colour: Colour) {
-		self.data[y][x] = colour;
+	pub fn set<T: Num + ToPrimitive>(&mut self, x: T, y: T, colour: Colour) {
+		self.data[y.to_usize().unwrap()][x.to_usize().unwrap()] = colour;
 	}
 
-	pub fn get(&self, x: usize, y: usize) -> Colour {
-		self.data[y][x]
+	pub fn get<T: Num + ToPrimitive>(&self, x: T, y: T,) -> Colour {
+		self.data[y.to_usize().unwrap()][x.to_usize().unwrap()]
 	}
 
 	pub fn write(&self, filename: &str) -> io::Result<()> {
@@ -50,5 +51,8 @@ impl Canvas {
 			}
 		}
 		Ok(())
+	}
+	pub fn draw<T: Drawable>(&mut self, shape: T, colour: Colour) {
+		shape.draw(colour, self);
 	}
 }
