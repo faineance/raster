@@ -10,11 +10,16 @@ pub struct Colour {
 	g: u8,
 	b: u8,
 }
+impl Colour {
+	pub fn new(r: u8, g: u8, b: u8) -> Colour {
+		Colour { r: r, g: g, b: b }
+	}
+}
 
 pub struct Canvas {
 	data: Vec<Vec<Colour>>,
-	width: usize,
-	height: usize,
+	pub width: usize,
+	pub height: usize,
 }
 
 impl Canvas {
@@ -52,7 +57,29 @@ impl Canvas {
 		}
 		Ok(())
 	}
-	pub fn draw<T: Drawable>(&mut self, shape: T, colour: Colour) {
-		shape.draw(colour, self);
+	pub fn draw<T: Drawable>(&mut self, shapes: Vec<T>, colour: Colour) {
+		for shape in shapes.iter() {
+			shape.draw(colour, self);
+		}
 	}
 }
+
+// #[cfg(test)]
+// mod tests {
+// 	use super::*;
+// 	use point::Point2D;
+// 	use line::Line2D;
+// 	#[test]
+// 	fn drawline() {
+// 		let background = Colour::new(0,0,0);
+// 		let foreground = Colour::new(255,255,255);
+// 		let mut canvas = Canvas::new(100, 100, foreground);
+// 		let mut batch = Vec::new();
+		
+
+// 		batch.push(Line2D::new(Point2D::new(2, 2), Point2D::new(99, 99)));
+// 		// canvas.draw(a , foreground);
+// 		canvas.draw(batch , foreground);
+// 		canvas.write("image.ppm");
+// 	}
+// }

@@ -1,8 +1,8 @@
 use std::ops::{Add, Sub, Neg};
-use num::{ToPrimitive};
-use num::Num;
+use num::{ToPrimitive, Num};
 use drawable::Drawable;
 use canvas::{Canvas, Colour};
+
 #[derive(Copy, Clone)]
 pub struct Point2D<T> {
 	pub x: T,
@@ -45,4 +45,15 @@ impl<T: Num + ToPrimitive> Drawable for Point2D<T> where T: Copy{
 		canvas.set(self.x, self.y, colour)
 		
 	}
+}
+
+pub fn orient2d<T: Num + Copy>(a: Point2D<T>, b: Point2D<T>, c: Point2D<T>) -> T {
+	//return positive, if c to the left of   a->b.
+    //return zero,     if c is colinear with a->b.
+    //return negative, if c to the right of  a->b.
+    let acx = a.x - c.x;
+    let bcx = b.x - c.x;
+    let acy = a.y - c.y;
+    let bcy = b.y - c.y;
+    acx * bcy - acy * bcx
 }

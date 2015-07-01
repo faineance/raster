@@ -1,7 +1,6 @@
 use point::Point2D;
 use std::ops::{Add, Sub, Neg};
-use num::{Zero, One, Num};
-use num::{ToPrimitive};
+use num::{Zero, One, Num, ToPrimitive};
 use drawable::Drawable;
 use canvas::{Canvas, Colour};
 pub struct Line2D<T>
@@ -18,7 +17,7 @@ impl<T> Line2D<T> {
 	}
 }
 
-impl<T: Num + ToPrimitive> Drawable for Line2D<T> where T: Sub<T, Output=T> + Add<T, Output=T> + Copy + PartialOrd + Zero + One {
+impl<T> Drawable for Line2D<T> where T: Sub<T, Output=T> + Add<T, Output=T> + Copy + PartialOrd + Zero + One + Num + ToPrimitive {
 	fn draw(&self, colour: Colour, canvas: &mut Canvas) {
 		let dx  = self.b.x - self.a.x;
 		let dy  = self.b.y - self.a.y;
